@@ -12,7 +12,7 @@
     html { scroll-behavior: smooth; }
     :root {
       --bg: hsl(220,20%,23%); --bg-deep: hsl(220,22%,19%);
-      --fg: hsl(220,15%,92%); --muted: hsla(220,10%,75%,0.6); --muted-dim: hsla(220,10%,75%,0.35);
+      --fg: hsl(220,15%,94%); --muted: hsla(220,10%,82%,0.75); --muted-dim: hsla(220,10%,82%,0.5);
       --card: hsla(220,20%,32%,0.55); --card-border: hsla(0,0%,100%,0.09);
       --primary: hsl(215,60%,55%); --primary-a: hsla(215,60%,55%,0.15);
       --accent: hsl(250,50%,65%); --accent-a: hsla(250,50%,60%,0.15);
@@ -126,9 +126,10 @@
     .card-summary { font-size:13px; font-weight:300; color:hsla(220,10%,75%,0.8); line-height:1.65; }
     .card-areas { display:flex; flex-wrap:wrap; gap:5px; }
     .area-badge { font-size:10px; font-weight:400; background:transparent; color:hsla(220,10%,75%,0.45); border:1px solid hsla(0,0%,100%,0.09); border-radius:4px; padding:2px 7px; flex-shrink:0; white-space:nowrap; }
-    .card-snippet-wrap { background:hsla(0,0%,0%,0.15); border:1px solid hsla(0,0%,100%,0.05); border-radius:8px; padding:10px 12px; cursor:pointer; }
-    .snippet-label { font-size:10px; font-weight:400; text-transform:uppercase; letter-spacing:0.12em; color:hsla(220,10%,75%,0.28); margin-bottom:4px; }
-    .snippet-text { font-size:12px; font-weight:300; color:hsla(220,10%,75%,0.45); line-height:1.6; }
+    .email-body-wrap { background:hsla(0,0%,0%,0.18); border:1px solid hsla(0,0%,100%,0.07); border-radius:10px; padding:14px 16px; margin-top:2px; }
+    .email-body-label { font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.12em; color:hsla(220,10%,82%,0.35); margin-bottom:10px; display:flex; align-items:center; gap:6px; }
+    .email-body-preview-tag { font-size:9px; font-weight:500; padding:1px 6px; border-radius:4px; background:hsla(250,50%,60%,0.12); color:hsl(250,60%,72%); border:1px solid hsla(250,50%,60%,0.2); text-transform:none; letter-spacing:0; }
+    .email-body-text { font-size:12px; font-weight:300; color:hsla(220,10%,82%,0.6); line-height:1.75; white-space:pre-wrap; }
 
     /* ── Staff panel ── */
     .staff-panel { padding:12px 16px; border-top:1px solid hsla(0,0%,100%,0.05); display:flex; flex-direction:column; gap:10px; }
@@ -645,6 +646,26 @@ function setView(v) {
   if (v === 'admin') { document.getElementById('nav-admin').classList.add('is-active'); renderAdminTable(); }
 }
 
+// ── Email body placeholder ───────────────────────────────────────────────────
+function buildEmailBody(e) {
+  const greetings = ['Dear team,', 'Hello,', 'Good morning,', 'To whom it may concern,', 'Dear colleagues,'];
+  const closings = ['Kind regards,', 'Best regards,', 'Yours sincerely,', 'Thank you,', 'With appreciation,'];
+  const seed = e.id.charCodeAt(0) + (e.id.charCodeAt(1) || 0);
+  const greeting = greetings[seed % greetings.length];
+  const closing = closings[(seed + 2) % closings.length];
+  const senderFirst = e.sender.split(' ')[0];
+  return `${greeting}
+
+${e.summary}
+
+This communication is being shared with your organisation as part of our regular policy and sector update process. We encourage you to review the attached materials and consider whether any action or response is required from your team.
+
+For questions or further information, please contact us directly or visit our website.
+
+${closing}
+${e.sender}`;
+}
+
 // ── Session ───────────────────────────────────────────────────────────────────
 function buildSessionPicker() {
   // Populate person filter too
@@ -738,9 +759,9 @@ function buildCard(e) {
         <div class="card-sender-full">${e.sender}</div>
         <div class="card-summary">${e.summary}</div>
         <div class="card-areas">${e.areas.map(a => `<span class="area-badge">${a}</span>`).join('')}</div>
-        <div class="card-snippet-wrap" onclick="this.style.display='none'">
-          <div class="snippet-label">Original snippet — click to dismiss</div>
-          <div class="snippet-text">${e.snippet}</div>
+        <div class="email-body-wrap">
+          <div class="email-body-label">Full email body <span class="email-body-preview-tag">preview</span></div>
+          <div class="email-body-text">${buildEmailBody(e)}</div>
         </div>
       </div>
       <div class="staff-panel">
