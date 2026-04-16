@@ -13,7 +13,7 @@
     :root {
       --bg: hsl(220,20%,23%); --bg-deep: hsl(220,22%,19%);
       --fg: hsl(220,15%,92%); --muted: hsla(220,10%,75%,0.6); --muted-dim: hsla(220,10%,75%,0.35);
-      --card: hsla(220,20%,28%,0.3); --card-border: hsla(0,0%,100%,0.06);
+      --card: hsla(220,20%,32%,0.55); --card-border: hsla(0,0%,100%,0.09);
       --primary: hsl(215,60%,55%); --primary-a: hsla(215,60%,55%,0.15);
       --accent: hsl(250,50%,65%); --accent-a: hsla(250,50%,60%,0.15);
       --green: hsl(160,50%,50%); --amber: hsl(35,80%,58%); --sidebar-w: 64px;
@@ -77,7 +77,7 @@
     .body::-webkit-scrollbar-thumb { background:hsla(0,0%,100%,0.1); border-radius:2px; }
 
     /* ── Filter bar ── */
-    .filter-bar { display:flex; align-items:center; flex-wrap:wrap; gap:8px; padding:9px 14px; border-radius:10px; background:hsla(220,20%,28%,0.35); border:1px solid hsla(0,0%,100%,0.06); flex-shrink:0; margin-bottom:4px; }
+    .filter-bar { display:flex; align-items:center; flex-wrap:wrap; gap:8px; padding:9px 14px; border-radius:10px; background:hsla(220,20%,32%,0.45); border:1px solid hsla(0,0%,100%,0.08); flex-shrink:0; margin-bottom:4px; }
     .filter-icon { color:hsla(220,10%,75%,0.35); flex-shrink:0; }
     .filter-select { appearance:none; background:transparent; border:1px solid hsla(0,0%,100%,0.09); border-radius:6px; padding:3px 24px 3px 8px; font-size:12px; font-family:inherit; font-weight:400; color:hsla(220,10%,75%,0.55); cursor:pointer; outline:none; transition:all 0.15s; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 7px center; }
     .filter-divider { width:1px; height:16px; background:hsla(0,0%,100%,0.07); flex-shrink:0; }
@@ -91,12 +91,12 @@
     .email-card.hidden { display:none; }
 
     /* Card header row — always visible */
-    .card-header { display:flex; align-items:center; gap:10px; padding:12px 16px; cursor:pointer; min-width:0; }
+    .card-header { display:flex; align-items:flex-start; gap:10px; padding:12px 16px; cursor:pointer; min-width:0; }
     .card-header:hover .card-subject { color:white; }
     .card-type-pill { font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.07em; padding:2px 8px; border-radius:4px; flex-shrink:0; white-space:nowrap; background:hsla(220,15%,40%,0.35); color:hsla(220,10%,75%,0.6); border:1px solid hsla(0,0%,100%,0.09); }
     .new-badge { font-size:9px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; padding:2px 6px; border-radius:4px; background:hsla(160,50%,45%,0.18); color:hsl(160,50%,65%); border:1px solid hsla(160,50%,45%,0.3); flex-shrink:0; }
     .flag-indicator { font-size:12px; color:hsl(35,80%,65%); flex-shrink:0; }
-    .card-subject { font-size:13px; font-weight:500; color:var(--fg); flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; transition:color 0.15s; }
+    .card-subject { font-size:13px; font-weight:500; color:var(--fg); flex:1; min-width:0; transition:color 0.15s; }
     .card-meta { display:flex; align-items:center; gap:8px; flex-shrink:0; }
     .card-sender-short { font-size:11px; font-weight:300; color:hsla(220,10%,75%,0.35); white-space:nowrap; }
     .card-date { font-size:11px; font-weight:300; color:hsla(220,10%,75%,0.3); white-space:nowrap; }
