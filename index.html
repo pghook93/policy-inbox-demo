@@ -93,10 +93,12 @@
     /* Card header row — always visible */
     .card-header { display:flex; align-items:flex-start; gap:10px; padding:12px 16px; cursor:pointer; min-width:0; }
     .card-header:hover .card-subject { color:white; }
-    .card-type-pill { font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.07em; padding:2px 8px; border-radius:4px; flex-shrink:0; white-space:nowrap; background:hsla(220,15%,40%,0.35); color:hsla(220,10%,75%,0.6); border:1px solid hsla(0,0%,100%,0.09); }
-    .new-badge { font-size:9px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; padding:2px 6px; border-radius:4px; background:hsla(160,50%,45%,0.18); color:hsl(160,50%,65%); border:1px solid hsla(160,50%,45%,0.3); flex-shrink:0; }
+    .card-left-col { display:flex; flex-direction:column; align-items:flex-start; gap:4px; flex-shrink:0; width:110px; }
+    .card-type-pill { font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.07em; padding:2px 8px; border-radius:4px; white-space:nowrap; background:hsla(220,15%,40%,0.35); color:hsla(220,10%,75%,0.6); border:1px solid hsla(0,0%,100%,0.09); }
+    .new-badge { font-size:9px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; padding:2px 6px; border-radius:4px; background:hsla(160,50%,45%,0.18); color:hsl(160,50%,65%); border:1px solid hsla(160,50%,45%,0.3); }
     .flag-indicator { font-size:12px; color:hsl(35,80%,65%); flex-shrink:0; }
-    .card-subject { font-size:13px; font-weight:500; color:var(--fg); flex:1; min-width:0; transition:color 0.15s; }
+    .card-main { flex:1; min-width:0; display:flex; flex-direction:column; gap:3px; }
+    .card-subject { font-size:13px; font-weight:500; color:var(--fg); transition:color 0.15s; line-height:1.4; }
     .card-meta { display:flex; align-items:center; gap:8px; flex-shrink:0; }
     .card-sender-short { font-size:11px; font-weight:300; color:hsla(220,10%,75%,0.35); white-space:nowrap; }
     .card-date { font-size:11px; font-weight:300; color:hsla(220,10%,75%,0.3); white-space:nowrap; }
@@ -639,15 +641,18 @@ function buildCard(e) {
 
   card.innerHTML = `
     <div class="card-header" onclick="toggleExpand('${e.id}')">
-      <span class="card-type-pill">${e.type}</span>
-      ${e.week === 'this' ? '<span class="new-badge">New</span>' : ''}
-      ${e.flagged ? '<span class="flag-indicator">⚑</span>' : ''}
-      <span class="card-subject">${e.subject}</span>
-      ${clusterHtml}
-      <div class="card-meta">
-        <span class="card-sender-short">${e.sender.split(' ').slice(-2).join(' ')}</span>
-        <span class="card-date">${e.date}</span>
+      <div class="card-left-col">
+        <span class="card-type-pill">${e.type}</span>
+        ${e.week === 'this' ? '<span class="new-badge">New</span>' : ''}
       </div>
+      <div class="card-main">
+        <span class="card-subject">${e.subject}</span>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="card-sender-short">${e.sender.split(' ').slice(-2).join(' ')}</span>
+          <span class="card-date">${e.date}</span>
+        </div>
+      </div>
+      ${clusterHtml}
       <button class="card-flag-btn ${e.flagged ? 'is-flagged' : ''}" id="flag-btn-${e.id}"
         onclick="toggleCardFlag(event,'${e.id}')" title="${e.flagged ? 'Remove flag' : 'Flag'}">⚑</button>
       <svg class="card-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
