@@ -246,6 +246,15 @@
     .stat-value { font-size:22px; font-weight:600; color:var(--fg); margin-bottom:2px; }
     .stat-label { font-size:11px; font-weight:300; color:var(--muted-dim); }
 
+    /* ── Unreviewed / AI state ── */
+    .review-badge { display:inline-flex; align-items:center; gap:4px; font-size:9px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; padding:2px 7px; border-radius:4px; background:hsla(35,80%,55%,0.15); color:hsl(35,80%,70%); border:1px solid hsla(35,80%,55%,0.35); flex-shrink:0; }
+    .email-card.unreviewed { border-color:hsla(35,80%,55%,0.25); }
+    .confirm-strip { display:flex; align-items:center; gap:10px; padding:10px 16px 12px; border-top:1px solid hsla(0,0%,100%,0.06); flex-wrap:wrap; }
+    .confirm-label { font-size:11px; color:hsla(35,80%,70%,0.9); flex:1; }
+    .confirm-btn { padding:5px 14px; border-radius:7px; border:1px solid hsla(160,50%,45%,0.4); background:hsla(160,50%,45%,0.12); color:hsl(160,50%,65%); font-size:12px; font-family:inherit; font-weight:500; cursor:pointer; transition:all 0.15s; }
+    .confirm-btn:hover { background:hsla(160,50%,45%,0.22); }
+    .confirm-edit-btn { padding:5px 14px; border-radius:7px; border:1px solid hsla(0,0%,100%,0.1); background:transparent; color:hsla(220,10%,75%,0.55); font-size:12px; font-family:inherit; cursor:pointer; transition:all 0.15s; }
+    .confirm-edit-btn:hover { background:hsla(0,0%,100%,0.06); color:var(--fg); }
     /* ── AI classify badge ── */
     .ai-badge { display:inline-flex; align-items:center; gap:4px; font-size:9px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; padding:2px 7px; border-radius:4px; background:hsla(250,60%,55%,0.15); color:hsl(250,70%,75%); border:1px solid hsla(250,60%,55%,0.3); flex-shrink:0; }
     .ai-classify-btn { display:flex; align-items:center; gap:6px; padding:7px 14px; border-radius:8px; border:1px solid hsla(250,60%,55%,0.4); background:hsla(250,60%,55%,0.1); color:hsl(250,70%,80%); font-size:12px; font-family:inherit; font-weight:500; cursor:pointer; transition:all 0.15s; white-space:nowrap; }
@@ -443,8 +452,7 @@
         </div>
         <div class="header-right">
           <span class="timestamp"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:3px"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>2h ago</span>
-          <button class="ai-classify-btn" id="add-email-btn" onclick="openAddModal()" style="display:none;padding:5px 12px;font-size:11px;">+ Add email</button>
-          <button class="refresh-btn" onclick="simulateRefresh(this)">
+<button class="refresh-btn" onclick="simulateRefresh(this)">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>Refresh inbox
           </button>
           <div class="user-chip" id="user-chip" onclick="switchUser()" style="display:none">
@@ -665,8 +673,6 @@ function selectUser(staffId) {
   document.getElementById('admin-chip-name').textContent = s.name.split(' ')[0];
   document.getElementById('user-chip').style.display = 'flex';
   document.getElementById('nav-admin').style.display = (staffId === ADMIN_USER_ID) ? 'flex' : 'none';
-  const addBtn = document.getElementById('add-email-btn');
-  if (addBtn) addBtn.style.display = (staffId === ADMIN_USER_ID) ? 'flex' : 'none';
   renderCards();
 }
 
@@ -690,7 +696,8 @@ function buildCard(e) {
   const state = emailState[e.id];
   const taggedStaff = STAFF.filter(s => state.tags[s.id]);
   const card = document.createElement('div');
-  card.className = 'email-card' + (e.flagged ? ' flagged' : '');
+  if (e.unreviewed && currentUserId !== ADMIN_USER_ID) { card.className = 'hidden'; card.innerHTML = ''; container.appendChild(card); return card; }
+  card.className = 'email-card' + (e.flagged ? ' flagged' : '') + (e.unreviewed ? ' unreviewed' : '');
   card.setAttribute('data-id', e.id);
   card.setAttribute('data-areas', e.areas.join('|'));
   card.setAttribute('data-type', e.type);
@@ -711,7 +718,7 @@ function buildCard(e) {
     <div class="card-header" onclick="toggleExpand('${e.id}')">
       <div class="card-main">
         <div class="card-top-row">
-          ${e.week === 'this' ? '<span class="new-badge">New</span>' : ''}
+          ${e.unreviewed ? '<span class="review-badge">&#10022; Review needed</span>' : (e.week === 'this' ? '<span class="new-badge">New</span>' : '')}
           <span class="card-type-pill">${e.type}</span>
         </div>
         <span class="card-subject">${e.subject}</span>
@@ -750,6 +757,15 @@ function buildCard(e) {
             : taggedStaff.map(s => buildStaffRow(e.id, s, state)).join('')}
         </div>
       </div>
+      ${e.unreviewed && currentUserId === ADMIN_USER_ID ? `
+      <div class="confirm-strip">
+        <div style="flex:1;">
+          <div style="font-size:11px;color:hsl(250,70%,75%);font-weight:600;margin-bottom:4px;">&#10022; AI suggested — awaiting your review</div>
+          <div style="font-size:11px;color:hsla(220,10%,75%,0.55);">Type: <b style="color:var(--fg)">${e.type}</b> &nbsp;·&nbsp; Areas: <b style="color:var(--fg)">${e.areas.join(', ')}</b></div>
+        </div>
+        <button class="confirm-edit-btn" onclick="event.stopPropagation();openEditModal(event,'${e.id}')">Edit</button>
+        <button class="confirm-btn" onclick="event.stopPropagation();confirmEmail('${e.id}')">Confirm &amp; publish</button>
+      </div>` : ''}
       ${buildCommentsSection(e.id)}
       ${currentUserId === ADMIN_USER_ID ? `
       <div class="admin-actions visible">
@@ -1095,16 +1111,74 @@ function confirmDelete() {
 }
 
 // ── Refresh simulation ────────────────────────────────────────────────────────
+// Mock emails that arrive on refresh — simulate AI pre-classification
+const REFRESH_MOCK_EMAILS = [
+  { subject: 'ACOSS: Federal Budget 2026 — Social Services Analysis', sender: 'Australian Council of Social Service',
+    summary: 'ACOSS has released its post-budget analysis examining cuts to social services and implications for community sector organisations.',
+    snippet: 'ACOSS post-budget analysis examines cuts to social services…',
+    aiType: 'Research or report release', aiAreas: ['NDIS and foundational supports','Safeguarding and human rights'] },
+  { subject: 'Consultation open: National Housing and Homelessness Plan 2026–2030', sender: 'Department of Social Services',
+    summary: 'DSS invites submissions on the draft National Housing and Homelessness Plan. Consultation closes 16 May 2026.',
+    snippet: 'DSS invites submissions on the draft National Housing and Homelessness Plan…',
+    aiType: 'Submission / consultation request', aiAreas: ['Housing and infrastructure'] }
+];
+let refreshCount = 0;
+
 function simulateRefresh(btn) {
   btn.disabled = true;
   const s = document.createElement('style'); s.textContent='@keyframes spin{to{transform:rotate(360deg)}}'; document.head.appendChild(s);
-  btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1s linear infinite"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Fetching…`;
-  setTimeout(() => { btn.innerHTML = btn.innerHTML.replace('Fetching…','Classifying…'); }, 1800);
+  btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1s linear infinite"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Fetching\u2026`;
+  setTimeout(() => { btn.innerHTML = btn.innerHTML.replace('Fetching\u2026','Classifying\u2026'); }, 1800);
   setTimeout(() => {
     btn.disabled = false;
     btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>Refresh inbox`;
     document.querySelector('.timestamp').innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:3px"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> just now`;
+
+    // Inject mock unreviewed emails (only first refresh)
+    if (refreshCount === 0) {
+      refreshCount++;
+      const today = new Date();
+      const dateStr = today.getDate() + ' ' + today.toLocaleString('en-AU',{month:'short'});
+      REFRESH_MOCK_EMAILS.forEach((m, i) => {
+        const id = 'refresh_' + Date.now() + '_' + i;
+        EMAILS.unshift({
+          id, week:'this', flagged:false, unreviewed:true,
+          type: m.aiType, areas: m.aiAreas,
+          date: dateStr, subject: m.subject, sender: m.sender,
+          summary: m.summary, snippet: m.snippet
+        });
+        emailState[id] = { expanded:true, tags:{}, status:{}, read:{}, comments:[] };
+      });
+      renderCards();
+      renderAdminTable();
+      // Show toast
+      showToast(`2 new emails fetched \u2014 AI classification ready for review`);
+    } else {
+      showToast('Inbox is up to date');
+    }
   }, 3600);
+}
+
+function confirmEmail(emailId) {
+  const email = EMAILS.find(e => e.id === emailId);
+  if (email) { delete email.unreviewed; }
+  renderCards();
+  renderAdminTable();
+  showToast('Email confirmed and published to team');
+}
+
+function showToast(msg) {
+  let t = document.getElementById('toast-msg');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'toast-msg';
+    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:hsl(220,20%,28%);border:1px solid hsla(0,0%,100%,0.12);color:hsl(220,10%,85%);padding:9px 20px;border-radius:10px;font-size:12px;font-weight:500;z-index:9999;pointer-events:none;transition:opacity 0.3s;';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.style.opacity = '1';
+  clearTimeout(t._to);
+  t._to = setTimeout(() => { t.style.opacity = '0'; }, 3000);
 }
 
 // ── Init ──────────────────────────────────────────────────────────────────────
