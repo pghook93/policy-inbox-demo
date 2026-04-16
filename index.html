@@ -79,7 +79,7 @@
 
     /* ── Filter bar ── */
     .filter-bar { display:flex; align-items:center; flex-wrap:wrap; gap:8px; padding:9px 14px; border-radius:10px; background:hsla(220,20%,32%,0.45); border:1px solid hsla(0,0%,100%,0.08); flex-shrink:0; margin-bottom:4px; }
-    .filter-icon { color:hsla(220,10%,75%,0.35); flex-shrink:0; }
+    .filter-icon { color:hsla(220,10%,88%,0.45); flex-shrink:0; }
     .filter-select { appearance:none; background:transparent; border:1px solid hsla(0,0%,100%,0.09); border-radius:6px; padding:3px 24px 3px 8px; font-size:12px; font-family:inherit; font-weight:400; color:hsla(220,10%,75%,0.55); cursor:pointer; outline:none; transition:all 0.15s; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 7px center; }
     .filter-divider { width:1px; height:16px; background:hsla(0,0%,100%,0.07); flex-shrink:0; }
     .flag-btn { padding:3px 10px; border-radius:6px; border:1px solid hsla(0,0%,100%,0.09); background:transparent; color:hsla(220,10%,75%,0.45); font-size:12px; font-family:inherit; cursor:pointer; transition:all 0.15s; white-space:nowrap; }
@@ -116,7 +116,7 @@
     .card-flag-btn.is-flagged { color:hsl(35,80%,68%); }
 
     /* Expand chevron */
-    .card-chevron { color:hsla(220,10%,75%,0.2); flex-shrink:0; transition:transform 0.2s; }
+    .card-chevron { color:hsla(220,10%,88%,0.4); flex-shrink:0; transition:transform 0.2s; }
     .email-card.open .card-chevron { transform:rotate(180deg); }
 
     /* Expanded body */
@@ -139,7 +139,7 @@
     /* ── Staff panel ── */
     .staff-panel { padding:8px 16px 10px; border-top:1px solid hsla(0,0%,100%,0.05); display:flex; flex-direction:column; gap:6px; }
     .staff-panel-header { display:flex; align-items:center; justify-content:space-between; }
-    .staff-panel-label { font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.12em; color:hsla(220,10%,85%,0.32); }
+    .staff-panel-label { font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.12em; color:hsla(220,10%,88%,0.45); }
     .assign-btn { display:flex; align-items:center; gap:5px; padding:3px 10px; border-radius:6px; background:transparent; border:1px solid hsla(0,0%,100%,0.09); color:hsla(220,10%,75%,0.45); font-size:11px; font-weight:400; font-family:inherit; cursor:pointer; transition:all 0.15s; }
     .assign-btn:hover { border-color:hsla(250,50%,60%,0.35); color:hsl(250,50%,75%); }
     .staff-rows { display:flex; flex-direction:column; gap:5px; }
@@ -169,7 +169,7 @@
     /* ── Assign dropdown ── */
     .assign-dropdown { position:fixed; z-index:200; background:hsl(220,22%,17%); border:1px solid hsla(0,0%,100%,0.12); border-radius:10px; padding:6px; min-width:230px; box-shadow:0 8px 32px hsla(0,0%,0%,0.4); display:none; }
     .assign-dropdown.open { display:block; }
-    .dropdown-section-label { font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:hsla(220,10%,75%,0.3); padding:4px 8px; font-weight:400; }
+    .dropdown-section-label { font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:hsla(220,10%,88%,0.45); padding:4px 8px; font-weight:400; }
     .dropdown-staff-item { display:flex; align-items:center; gap:8px; padding:6px 8px; border-radius:6px; cursor:pointer; transition:background 0.1s; }
     .dropdown-staff-item:hover { background:hsla(0,0%,100%,0.06); }
     .dropdown-staff-name { font-size:12px; font-weight:400; color:hsla(220,10%,75%,0.8); flex:1; }
@@ -185,12 +185,12 @@
 
     /* ── Comments ── */
     .comments-section { border-top:1px solid hsla(0,0%,100%,0.05); padding:10px 16px 14px; display:flex; flex-direction:column; gap:8px; }
-    .comments-label { font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.12em; color:hsla(220,10%,75%,0.3); }
+    .comments-label { font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.12em; color:hsla(220,10%,88%,0.5); }
     .comment-list { display:flex; flex-direction:column; gap:6px; }
     .comment-item { display:flex; gap:8px; align-items:flex-start; }
     .comment-avatar { width:20px; height:20px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:8px; font-weight:600; color:white; margin-top:1px; }
     .comment-bubble { flex:1; background:hsla(220,20%,28%,0.45); border:1px solid hsla(0,0%,100%,0.06); border-radius:7px; padding:6px 10px; }
-    .comment-meta { font-size:10px; color:hsla(220,10%,75%,0.3); margin-bottom:2px; }
+    .comment-meta { font-size:10px; color:hsla(220,10%,88%,0.5); margin-bottom:2px; }
     .comment-meta strong { color:hsla(220,10%,75%,0.6); font-weight:500; }
     .comment-text { font-size:12px; font-weight:300; color:hsla(220,10%,75%,0.75); line-height:1.5; }
     .comment-input-row { display:flex; gap:8px; align-items:flex-end; }
@@ -220,11 +220,11 @@
     .admin-body::-webkit-scrollbar-track { background:transparent; }
     .admin-body::-webkit-scrollbar-thumb { background:hsla(0,0%,100%,0.1); border-radius:2px; }
     .admin-filter-bar { display:flex; align-items:center; gap:8px; flex-wrap:wrap; padding:9px 14px; border-radius:10px; background:hsla(220,20%,28%,0.35); border:1px solid hsla(0,0%,100%,0.06); flex-shrink:0; }
-    .admin-label { font-size:11px; font-weight:400; text-transform:uppercase; letter-spacing:0.12em; color:hsla(220,10%,75%,0.35); }
+    .admin-label { font-size:11px; font-weight:400; text-transform:uppercase; letter-spacing:0.12em; color:hsla(220,10%,88%,0.5); }
     .admin-table-wrap { border-radius:10px; border:1px solid hsla(0,0%,100%,0.06); overflow:hidden; flex-shrink:0; }
     .admin-table { width:100%; border-collapse:collapse; }
     .admin-table thead tr { background:hsla(220,22%,19%,0.8); border-bottom:1px solid hsla(0,0%,100%,0.07); }
-    .admin-table th { padding:9px 12px; font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.1em; color:hsla(220,10%,75%,0.35); text-align:left; white-space:nowrap; }
+    .admin-table th { padding:9px 12px; font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.1em; color:hsla(220,10%,88%,0.5); text-align:left; white-space:nowrap; }
     .admin-table th.staff-col { text-align:center; min-width:90px; }
     .admin-table tbody tr { border-bottom:1px solid hsla(0,0%,100%,0.04); transition:background 0.1s; }
     .admin-table tbody tr:last-child { border-bottom:none; }
@@ -238,13 +238,13 @@
     .admin-cell-inner { display:flex; flex-direction:column; align-items:center; gap:3px; }
     .cell-tag-fyi   { font-size:9px; font-weight:500; text-transform:uppercase; letter-spacing:0.06em; padding:2px 6px; border-radius:4px; background:hsla(215,60%,55%,0.1); color:hsl(215,60%,70%); border:1px solid hsla(215,60%,55%,0.18); }
     .cell-tag-action{ font-size:9px; font-weight:500; text-transform:uppercase; letter-spacing:0.06em; padding:2px 6px; border-radius:4px; background:hsla(35,80%,58%,0.08); color:hsl(35,80%,68%); border:1px solid hsla(35,80%,58%,0.18); }
-    .cell-status { font-size:9px; font-weight:400; color:hsla(220,10%,75%,0.35); }
+    .cell-status { font-size:9px; font-weight:400; color:hsla(220,10%,88%,0.5); }
     .cell-status.in-progress { color:hsl(35,80%,68%); }
     .cell-status.done { color:hsl(160,50%,60%); }
     .cell-read-dot { width:5px; height:5px; border-radius:50%; margin-top:1px; }
     .cell-read-dot.read { background:var(--green); }
     .cell-read-dot.unread { background:hsla(0,0%,100%,0.15); border:1px solid hsla(0,0%,100%,0.2); }
-    .cell-none { font-size:10px; color:hsla(220,10%,75%,0.12); }
+    .cell-none { font-size:10px; color:hsla(220,10%,88%,0.35); }
     .week-chip { font-size:10px; font-weight:500; padding:2px 7px; border-radius:20px; white-space:nowrap; }
     .week-chip.this-week { background:hsla(160,50%,45%,0.12); color:hsl(160,50%,65%); border:1px solid hsla(160,50%,45%,0.25); }
     .week-chip.last-week { background:transparent; color:hsla(220,10%,75%,0.3); border:1px solid hsla(0,0%,100%,0.07); }
@@ -819,7 +819,7 @@ function buildCard(e) {
         <span class="card-subject">${e.subject}</span>
         <div class="card-meta">
           <span class="card-sender-short">${e.sender}</span>
-          <span style="color:hsla(220,10%,75%,0.2);font-size:10px;">·</span>
+          <span style="color:hsla(220,10%,88%,0.4);font-size:10px;">·</span>
           <span class="card-date">${e.date}</span>
         </div>
       </div>
@@ -835,7 +835,7 @@ function buildCard(e) {
         <div class="card-areas">${e.areas.map(a => `<span class="area-badge">${a}</span>`).join('')}</div>
         <button class="email-body-toggle" onclick="event.stopPropagation();toggleEmailBody('${e.id}')">
           <svg class="email-body-toggle-chevron" id="body-chev-${e.id}" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
-          View full email <span class="email-body-preview-tag">preview</span>
+          View full email
         </button>
         <div class="email-body-wrap" id="email-body-${e.id}">
           <div class="email-body-text">${buildEmailBody(e)}</div>
@@ -851,7 +851,7 @@ function buildCard(e) {
         </div>
         <div class="staff-rows" id="staff-rows-${e.id}">
           ${taggedStaff.length === 0
-            ? `<div style="font-size:12px;font-weight:300;color:hsla(220,10%,75%,0.25)">No team members assigned yet</div>`
+            ? `<div style="font-size:12px;font-weight:300;color:hsla(220,10%,88%,0.5)">No team members assigned yet</div>`
             : taggedStaff.map(s => buildStaffRow(e.id, s, state)).join('')}
         </div>
       </div>
@@ -889,10 +889,10 @@ function buildStaffRow(emailId, staff, state) {
     ? `<button class="action-status ${status} ${isYou?'clickable':'readonly'}"
          ${isYou?`onclick="cycleStatus(event,'${emailId}','${staff.id}')"`:''}>
          <span class="status-dot"></span>${labels[status]}</button>`
-    : `<span style="font-size:10px;color:hsla(220,10%,75%,0.18);padding:0 4px">—</span>`;
+    : `<span style="font-size:10px;color:hsla(220,10%,88%,0.4);padding:0 4px">—</span>`;
   return `<div class="staff-row">
     <div class="staff-avatar" style="background:${staff.color}">${staff.initials}</div>
-    <span class="staff-name ${isYou?'is-you':''}">${staff.name}${isYou?'<span class="you-tag">you</span>':''}</span>
+    <span class="staff-name ${isYou?'is-you':''}">${staff.name}</span>
     <span class="tag-type ${tag==='fyi'?'tag-fyi':'tag-action'}">${tag==='fyi'?'FYI':'Action'}</span>
     <div class="read-dot ${read?'read':'unread'}" title="${read?'Read':'Unread'}"></div>
     ${actionBtn}
@@ -905,7 +905,7 @@ function refreshStaffRows(emailId) {
   const el = document.getElementById(`staff-rows-${emailId}`);
   if (!el) return;
   el.innerHTML = taggedStaff.length === 0
-    ? `<div style="font-size:12px;font-weight:300;color:hsla(220,10%,75%,0.25)">No team members assigned yet</div>`
+    ? `<div style="font-size:12px;font-weight:300;color:hsla(220,10%,88%,0.5)">No team members assigned yet</div>`
     : taggedStaff.map(s => buildStaffRow(emailId, s, state)).join('');
   // Update cluster in header
   const card = document.querySelector(`[data-id="${emailId}"]`);
