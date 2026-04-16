@@ -30,6 +30,7 @@
     .session-title { font-size:18px; font-weight:600; color:var(--fg); margin-bottom:6px; }
     .session-sub { font-size:13px; font-weight:300; color:var(--muted); margin-bottom:28px; line-height:1.5; }
     .session-staff-grid { display:flex; flex-direction:column; gap:6px; }
+    .session-action-badge { display:inline-flex; align-items:center; justify-content:center; min-width:18px; height:18px; padding:0 5px; border-radius:9px; background:hsla(35,80%,58%,0.18); border:1px solid hsla(35,80%,58%,0.35); color:hsl(35,80%,72%); font-size:10px; font-weight:600; font-family:inherit; margin-left:auto; margin-right:4px; flex-shrink:0; }
     .session-staff-btn { display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:10px; border:1px solid hsla(0,0%,100%,0.08); background:transparent; cursor:pointer; transition:all 0.15s; font-family:inherit; text-align:left; width:100%; }
     .session-staff-btn:hover { background:hsla(0,0%,100%,0.06); border-color:hsla(0,0%,100%,0.16); }
     .session-avatar { width:36px; height:36px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:600; color:white; }
@@ -722,15 +723,26 @@ function buildSessionPicker() {
   personSel.innerHTML = '<option value="All">Person: All</option>' +
     STAFF.map(s => `<option value="${s.id}">${s.name.split(' ')[0]}</option>`).join('');
 
-  document.getElementById('session-staff-grid').innerHTML = STAFF.map(s => `
+  document.getElementById('session-staff-grid').innerHTML = STAFF.map(s => {
+    // Count unread action items for this staff member
+    const actionCount = EMAILS.filter(e => {
+      const st = emailState[e.id];
+      return st && st.tags[s.id] === 'action' && !st.read[s.id] && st.status[s.id] !== 'done';
+    }).length;
+    const badgeHtml = actionCount > 0
+      ? `<span class="session-action-badge" title="${actionCount} unread action item${actionCount > 1 ? 's' : ''}">${actionCount}</span>`
+      : '';
+    return `
     <button class="session-staff-btn" onclick="selectUser('${s.id}')">
       <div class="session-avatar" style="background:${s.color}">${s.initials}</div>
-      <div>
+      <div style="flex:1;min-width:0;">
         <div class="session-name">${s.name}${s.id === ADMIN_USER_ID ? '<span class="admin-badge">(Admin)</span>' : ''}</div>
         <div class="session-role">${s.role}</div>
       </div>
+      ${badgeHtml}
       <svg class="session-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-    </button>`).join('');
+    </button>`;
+  }).join('');
 }
 
 function selectUser(staffId) {
