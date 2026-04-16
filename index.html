@@ -123,11 +123,11 @@
     .card-body { display:none; border-top:1px solid hsla(0,0%,100%,0.05); }
     .email-card.open .card-body { display:block; }
     .card-body-inner { padding:14px 16px; display:flex; flex-direction:column; gap:12px; }
-    .card-sender-full { font-size:11px; font-weight:300; color:hsla(220,10%,75%,0.4); }
-    .card-summary { font-size:13px; font-weight:300; color:hsla(220,10%,75%,0.8); line-height:1.65; }
+    .card-sender-full { font-size:11px; font-weight:300; color:hsla(220,10%,88%,0.55); }
+    .card-summary { font-size:13px; font-weight:300; color:hsla(220,10%,92%,0.85); line-height:1.65; }
     .card-areas { display:flex; flex-wrap:wrap; gap:5px; }
-    .area-badge { font-size:10px; font-weight:400; background:transparent; color:hsla(220,10%,75%,0.45); border:1px solid hsla(0,0%,100%,0.09); border-radius:4px; padding:2px 7px; flex-shrink:0; white-space:nowrap; }
-    .email-body-toggle { display:flex; align-items:center; gap:6px; background:none; border:none; cursor:pointer; font-family:inherit; font-size:11px; font-weight:400; color:hsla(220,10%,85%,0.45); padding:0; margin-top:2px; transition:color 0.15s; }
+    .area-badge { font-size:10px; font-weight:400; background:transparent; color:hsla(220,10%,88%,0.6); border:1px solid hsla(0,0%,100%,0.12); border-radius:4px; padding:2px 7px; flex-shrink:0; white-space:nowrap; }
+    .email-body-toggle { display:flex; align-items:center; gap:6px; background:none; border:none; cursor:pointer; font-family:inherit; font-size:11px; font-weight:400; color:hsla(220,10%,88%,0.6); padding:0; margin-top:2px; transition:color 0.15s; }
     .email-body-toggle:hover { color:hsla(220,10%,85%,0.75); }
     .email-body-toggle-chevron { transition:transform 0.2s; }
     .email-body-toggle-chevron.open { transform:rotate(180deg); }
@@ -139,8 +139,8 @@
     /* ── Staff panel ── */
     .staff-panel { padding:8px 16px 10px; border-top:1px solid hsla(0,0%,100%,0.05); display:flex; flex-direction:column; gap:6px; }
     .staff-panel-header { display:flex; align-items:center; justify-content:space-between; }
-    .staff-panel-label { font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.12em; color:hsla(220,10%,88%,0.45); }
-    .assign-btn { display:flex; align-items:center; gap:5px; padding:3px 10px; border-radius:6px; background:transparent; border:1px solid hsla(0,0%,100%,0.09); color:hsla(220,10%,75%,0.45); font-size:11px; font-weight:400; font-family:inherit; cursor:pointer; transition:all 0.15s; }
+    .staff-panel-label { font-size:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.12em; color:hsla(220,10%,88%,0.55); }
+    .assign-btn { display:flex; align-items:center; gap:5px; padding:3px 10px; border-radius:6px; background:transparent; border:1px solid hsla(0,0%,100%,0.09); color:hsla(220,10%,88%,0.6); font-size:11px; font-weight:400; font-family:inherit; cursor:pointer; transition:all 0.15s; }
     .assign-btn:hover { border-color:hsla(250,50%,60%,0.35); color:hsl(250,50%,75%); }
     .staff-rows { display:flex; flex-direction:column; gap:5px; }
     .staff-row { display:flex; align-items:center; gap:8px; }
@@ -158,7 +158,7 @@
     .action-status.clickable { cursor:pointer; }
     .action-status.readonly { cursor:default; opacity:0.5; }
     .action-status.clickable:hover { filter:brightness(1.2); }
-    .action-status.not-started { color:hsla(220,10%,75%,0.35); border-color:hsla(0,0%,100%,0.08); }
+    .action-status.not-started { color:hsla(220,10%,88%,0.55); border-color:hsla(0,0%,100%,0.15); }
     .action-status.in-progress { color:hsl(35,80%,68%); border-color:hsla(35,80%,58%,0.25); background:hsla(35,80%,58%,0.07); }
     .action-status.done { color:hsl(160,50%,60%); border-color:hsla(160,50%,50%,0.25); background:hsla(160,50%,50%,0.07); }
     .status-dot { width:5px; height:5px; border-radius:50%; flex-shrink:0; }
@@ -286,7 +286,7 @@
     .edit-modal-title { font-size:15px; font-weight:600; color:var(--fg); }
     .edit-modal-close { margin-left:auto; background:none; border:none; color:var(--muted); cursor:pointer; font-size:18px; line-height:1; }
     .edit-field { display:flex; flex-direction:column; gap:5px; }
-    .edit-label { font-size:11px; font-weight:400; text-transform:uppercase; letter-spacing:0.1em; color:hsla(220,10%,75%,0.4); }
+    .edit-label { font-size:11px; font-weight:400; text-transform:uppercase; letter-spacing:0.1em; color:hsla(220,10%,88%,0.55); }
     .edit-input { background:hsla(220,20%,28%,0.6); border:1px solid hsla(0,0%,100%,0.1); border-radius:8px; padding:8px 12px; font-family:inherit; font-size:13px; font-weight:300; color:var(--fg); outline:none; transition:border-color 0.15s; }
     .edit-input:focus { border-color:hsla(215,60%,55%,0.4); }
     .edit-textarea { min-height:80px; resize:vertical; line-height:1.5; }
